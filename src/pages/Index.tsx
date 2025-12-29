@@ -1,13 +1,38 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from 'react-helmet-async';
+import Navbar from '@/components/sections/Navbar';
+import HeroSection from '@/components/sections/HeroSection';
+import OverviewSection from '@/components/sections/OverviewSection';
+import TeamSection from '@/components/sections/TeamSection';
+import ScheduleSection from '@/components/sections/ScheduleSection';
+import EvaluationSection from '@/components/sections/EvaluationSection';
+import RulesSection from '@/components/sections/RulesSection';
+import CTASection from '@/components/sections/CTASection';
+import Footer from '@/components/sections/Footer';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <Helmet>
+        <title>Prompt the Future | 24-Hour AI Hackathon</title>
+        <meta 
+          name="description" 
+          content="Prompt the Future is a 24-hour hackathon focused on AI-first thinking, vibe coding, and real-world problem solving. 12-13 February at Gulzar Group of Institutes. ₹50,000 prize pool." 
+        />
+        <meta name="keywords" content="hackathon, AI, coding, vibe coding, tech event, Gulzar Group of Institutes" />
+      </Helmet>
+      
+      <Navbar />
+      <main className="min-h-screen bg-background overflow-x-hidden">
+        <HeroSection />
+        <OverviewSection />
+        <TeamSection />
+        <ScheduleSection />
+        <EvaluationSection />
+        <RulesSection />
+        <CTASection />
+        <Footer />
+      </main>
+    </>
   );
 };
 
