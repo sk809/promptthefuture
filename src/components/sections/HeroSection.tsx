@@ -49,8 +49,10 @@ const HeroSection = () => {
             <Button variant="gradient" size="lg" className="w-full sm:w-auto">
               Register Now — ₹500/team
             </Button>
-            <Button variant="glass" size="lg" className="w-full sm:w-auto">
-              Learn More
+            <Button variant="glass" size="lg" className="w-full sm:w-auto" asChild>
+              <a href="https://promptthefuture.devfolio.co/overview" target="_blank" rel="noopener noreferrer">
+                Apply with Devfolio
+              </a>
             </Button>
           </div>
 
