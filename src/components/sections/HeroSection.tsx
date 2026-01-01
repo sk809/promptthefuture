@@ -1,6 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 import AnimatedShaderBackground from '@/components/ui/AnimatedShaderBackground';
 import { Button } from '@/components/ui/button';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
 
 const HeroSection = () => {
   return (
@@ -49,11 +50,15 @@ const HeroSection = () => {
             <Button variant="gradient" size="lg" className="w-full sm:w-auto">
               Register Now — ₹500/team
             </Button>
-            <Button variant="glass" size="lg" className="w-full sm:w-auto" asChild>
-              <a href="https://promptthefuture.devfolio.co/overview" target="_blank" rel="noopener noreferrer">
+            <a href="https://promptthefuture.devfolio.co/overview" target="_blank" rel="noopener noreferrer">
+              <ShimmerButton
+                shimmerColor="hsl(280, 100%, 70%)"
+                background="linear-gradient(135deg, hsl(280, 100%, 50%) 0%, hsl(330, 100%, 50%) 50%, hsl(220, 100%, 60%) 100%)"
+                className="w-full sm:w-auto text-base font-semibold"
+              >
                 Apply with Devfolio
-              </a>
-            </Button>
+              </ShimmerButton>
+            </a>
           </div>
 
           {/* Prize Pool */}
