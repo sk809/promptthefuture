@@ -21,7 +21,7 @@ const HeroSection = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-primary/30 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-gradient-pink animate-pulse-glow" />
             <span className="text-sm font-medium text-muted-foreground">
-              12 – 13 February • 24 Hours
+              19 – 20 February • 24 Hours
             </span>
           </div>
 
