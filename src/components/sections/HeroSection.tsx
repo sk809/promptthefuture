@@ -56,8 +56,8 @@ const HeroSection = () => {
 
           {/* Prize Pool */}
           <div className="pt-8 animate-slide-up delay-500">
-            <p className="text-muted-foreground text-sm mb-2">Total Prize Pool</p>
-            <p className="text-4xl md:text-5xl font-bold gradient-text">₹50,000</p>
+            <p className="text-muted-foreground text-sm mb-2">Total Prize Pool Worth</p>
+            <p className="text-4xl md:text-5xl font-bold gradient-text">₹1,00,000</p>
           </div>
         </div>
       </div>

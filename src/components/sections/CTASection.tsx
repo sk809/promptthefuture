@@ -13,7 +13,7 @@ const CTASection = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-primary/30 mb-8">
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm font-medium">
-              Win from a prize pool of <span className="text-primary font-bold">₹50,000</span>
+              Win from a prize pool worth <span className="text-primary font-bold">₹1,00,000</span>
             </span>
           </div>
 
