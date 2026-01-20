@@ -17,7 +17,7 @@ const ScheduleSection = () => {
               <Calendar className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="text-lg font-semibold text-muted-foreground mb-2">Date</h3>
-            <p className="text-2xl font-bold text-foreground">12 – 13 February</p>
+            <p className="text-2xl font-bold text-foreground">19 – 20 February</p>
           </div>
 
           {/* Duration */}
