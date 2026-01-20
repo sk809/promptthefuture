@@ -45,11 +45,16 @@ const HeroSection = () => {
             Prompt it. Build it. Showcase it.
           </p>
 
-          {/* CTA Button */}
-          <div className="flex justify-center items-center pt-4 animate-slide-up delay-400">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 animate-slide-up delay-400">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvogyfhIzO5ORYlpK72nTJ8Vb__9oEohW4Yh98bnegDQXNXA/viewform?usp=header" target="_blank" rel="noopener noreferrer">
               <Button variant="gradient" size="lg" className="w-full sm:w-auto">
                 Register Now — ₹500/team
+              </Button>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1v2KlicbZSfszDpedRClFsONPmwTPPMLg?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                Preview Rulebook
               </Button>
             </a>
           </div>
