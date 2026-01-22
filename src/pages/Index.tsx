@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/sections/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import OverviewSection from '@/components/sections/OverviewSection';
+import EventPosterSection from '@/components/sections/EventPosterSection';
 import TeamSection from '@/components/sections/TeamSection';
 import ScheduleSection from '@/components/sections/ScheduleSection';
 import TimelineSection from '@/components/sections/TimelineSection';
@@ -28,6 +29,7 @@ const Index = () => {
       <main className="min-h-screen bg-background overflow-x-hidden">
         <HeroSection />
         <OverviewSection />
+        <EventPosterSection />
         <TeamSection />
         <ScheduleSection />
         <TimelineSection />
