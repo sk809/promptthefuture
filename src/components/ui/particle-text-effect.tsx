@@ -397,7 +397,7 @@ export function ParticleTextEffect({
           style={{ aspectRatio: '4.8/1' }}
         />
       ) : (
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center font-space-grotesk bg-gradient-to-r from-[#FF1493] via-[#BF40FF] to-[#0096FF] bg-clip-text text-transparent animate-fade-in">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center font-space-grotesk gradient-text animate-fade-in">
           Prompt the Future
         </h1>
       )}
