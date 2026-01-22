@@ -1,5 +1,6 @@
 import React from "react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import hackathonPoster from "@/assets/hackathon-poster.png";
 
 const EventPosterSection = () => {
   return (
@@ -17,7 +18,7 @@ const EventPosterSection = () => {
         }
       >
         <img
-          src="/placeholder.svg"
+          src={hackathonPoster}
           alt="Hackathon Event Poster - Next Quantum 3.0 Vibe Coding Hackathon"
           className="mx-auto rounded-2xl object-contain h-full w-full"
           draggable={false}
