@@ -9,6 +9,7 @@ import EvaluationSection from '@/components/sections/EvaluationSection';
 import RulesSection from '@/components/sections/RulesSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import SupportSection from '@/components/sections/SupportSection';
 import Footer from '@/components/sections/Footer';
 
 const Index = () => {
@@ -34,6 +35,7 @@ const Index = () => {
         <RulesSection />
         <FAQSection />
         <CTASection />
+        <SupportSection />
         <Footer />
       </main>
     </>
