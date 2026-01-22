@@ -1,9 +1,11 @@
 import { ChevronDown } from 'lucide-react';
 import AnimatedShaderBackground from '@/components/ui/AnimatedShaderBackground';
 import { Button } from '@/components/ui/button';
-import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { ParticleTextEffect } from '@/components/ui/particle-text-effect';
 
 const HeroSection = () => {
+  const particleWords = ["Hello coders !", "Are you ready To", "Prompt the future"];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Shader Background */}
@@ -25,10 +27,14 @@ const HeroSection = () => {
             </span>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-display tracking-tight animate-slide-up">
-            <span className="gradient-text text-glow">PROMPT THE FUTURE</span>
-          </h1>
+          {/* Particle Text Effect - Replaces Main Title */}
+          <div className="animate-slide-up">
+            <ParticleTextEffect 
+              words={particleWords} 
+              intervalMs={4000}
+              className="min-h-[80px] md:min-h-[120px]"
+            />
+          </div>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 font-light animate-slide-up delay-100">
