@@ -23,6 +23,11 @@ const FAQSection = () => {
         'Participants must bring: A laptop with required development tools installed, chargers and necessary accessories, valid institutional ID card, and any personal essentials required for a 24-hour event. All development work must be carried out during the hackathon.',
     },
     {
+      question: 'Will the theme and problem statement be given in advance?',
+      answer:
+        'The themes will be announced in advance to help teams prepare and align their skills. However, the exact problem statements will be revealed on the spot at the start of the hackathon. Teams must develop their solutions strictly based on the given problem statement within the declared themes. Pre-prepared or previously developed solutions will not be permitted.',
+    },
+    {
       question: 'Is there an entry fee for the Vibe Coding Hackathon?',
       answer:
         'Yes. A registration fee of ₹500 per team is mandatory. The fee covers accommodation, food, and basic logistical arrangements. The registration fee is non-refundable.',
