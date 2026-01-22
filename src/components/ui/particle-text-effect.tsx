@@ -1,17 +1,17 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface Vector2D {
   x: number
   y: number
 }
 
-// Neon color palette: pink, purple, cyan/neon green
+// Neon color palette: pink, purple, cyan/blue for gradient effect
 const NEON_COLORS = [
   { r: 255, g: 20, b: 147 },  // Deep Pink
   { r: 191, g: 64, b: 255 },  // Purple/Violet
-  { r: 0, g: 255, b: 200 },   // Neon Cyan/Green
+  { r: 0, g: 150, b: 255 },   // Neon Blue
 ]
 
 class Particle {
@@ -140,7 +140,7 @@ interface ParticleTextEffectProps {
   className?: string
 }
 
-const DEFAULT_WORDS = ["Hello coders !", "Are you ready To", "Prompt the future"]
+const DEFAULT_WORDS = ["Hello coders !", "Are you ready To", "Prompt the Future"]
 
 export function ParticleTextEffect({ 
   words = DEFAULT_WORDS, 
@@ -154,8 +154,10 @@ export function ParticleTextEffect({
   const wordIndexRef = useRef(0)
   const mouseRef = useRef({ x: 0, y: 0, isPressed: false, isRightClick: false })
   const colorIndexRef = useRef(0)
+  const animationCompleteRef = useRef(false)
+  const [showFinalText, setShowFinalText] = useState(false)
 
-  const pixelSteps = 6
+  const pixelSteps = 5
   const drawAsPoints = true
   const framesPerWord = Math.round((intervalMs / 1000) * 60)
 
@@ -187,7 +189,7 @@ export function ParticleTextEffect({
     const offscreenCtx = offscreenCanvas.getContext("2d")!
 
     offscreenCtx.fillStyle = "white"
-    offscreenCtx.font = "bold 72px 'Space Grotesk', Arial"
+    offscreenCtx.font = "bold 120px 'Space Grotesk', Arial"
     offscreenCtx.textAlign = "center"
     offscreenCtx.textBaseline = "middle"
     offscreenCtx.fillText(word, canvas.width / 2, canvas.height / 2)
@@ -297,10 +299,41 @@ export function ParticleTextEffect({
     }
 
     frameCountRef.current++
+    
+    // Check if animation is complete (last word reached and settled)
+    if (animationCompleteRef.current) {
+      // Continue animating until particles settle, then show final text
+      const allSettled = particles.every(p => {
+        const distance = Math.sqrt(Math.pow(p.pos.x - p.target.x, 2) + Math.pow(p.pos.y - p.target.y, 2))
+        return distance < 2
+      })
+      
+      if (allSettled && particles.length > 0) {
+        // Wait a bit then show final gradient text
+        setTimeout(() => {
+          setShowFinalText(true)
+          if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current)
+          }
+        }, 500)
+        return
+      }
+      
+      animationRef.current = requestAnimationFrame(animate)
+      return
+    }
+    
     if (frameCountRef.current % framesPerWord === 0) {
-      wordIndexRef.current = (wordIndexRef.current + 1) % words.length
-      colorIndexRef.current = (colorIndexRef.current + 1) % NEON_COLORS.length
-      nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current)
+      const nextIndex = wordIndexRef.current + 1
+      
+      if (nextIndex >= words.length) {
+        // Last word reached - mark animation as complete
+        animationCompleteRef.current = true
+      } else {
+        wordIndexRef.current = nextIndex
+        colorIndexRef.current = (colorIndexRef.current + 1) % NEON_COLORS.length
+        nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current)
+      }
     }
 
     animationRef.current = requestAnimationFrame(animate)
@@ -310,8 +343,8 @@ export function ParticleTextEffect({
     const canvas = canvasRef.current
     if (!canvas) return
 
-    canvas.width = 1000
-    canvas.height = 200
+    canvas.width = 1200
+    canvas.height = 250
 
     nextWord(words[0], canvas, 0)
     animate()
@@ -357,11 +390,17 @@ export function ParticleTextEffect({
 
   return (
     <div className={`relative ${className}`}>
-      <canvas
-        ref={canvasRef}
-        className="w-full max-w-5xl h-auto mx-auto"
-        style={{ aspectRatio: '5/1' }}
-      />
+      {!showFinalText ? (
+        <canvas
+          ref={canvasRef}
+          className="w-full max-w-6xl h-auto mx-auto"
+          style={{ aspectRatio: '4.8/1' }}
+        />
+      ) : (
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center font-space-grotesk bg-gradient-to-r from-[#FF1493] via-[#BF40FF] to-[#0096FF] bg-clip-text text-transparent animate-fade-in">
+          Prompt the Future
+        </h1>
+      )}
     </div>
   )
 }
