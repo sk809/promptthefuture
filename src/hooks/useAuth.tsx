@@ -24,13 +24,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const checkAdminStatus = async (): Promise<boolean> => {
     if (!user?.email) return false;
     
+    // Use the SECURITY DEFINER function to avoid RLS recursion
     const { data, error } = await supabase
-      .from('admin_whitelist')
-      .select('email')
-      .eq('email', user.email)
-      .maybeSingle();
+      .rpc('is_admin_email', { _email: user.email });
     
-    const adminStatus = !error && !!data;
+    const adminStatus = !error && data === true;
     setIsAdmin(adminStatus);
     return adminStatus;
   };
