@@ -36,6 +36,16 @@ const AdminLogin = () => {
       if (isSignUp) {
         const { error } = await signUp(email, password);
         if (error) {
+          // If user already exists, switch to sign-in mode automatically
+          if (error.message.includes('already registered') || error.message.includes('already exists')) {
+            toast({
+              title: 'Account Exists',
+              description: 'This email is already registered. Please sign in instead.',
+            });
+            setIsSignUp(false);
+            setIsSubmitting(false);
+            return;
+          }
           toast({
             title: 'Sign Up Failed',
             description: error.message,
