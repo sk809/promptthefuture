@@ -1,7 +1,7 @@
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import AnimatedShaderBackground from '@/components/ui/AnimatedShaderBackground';
 import { Button } from '@/components/ui/button';
-import { ShimmerButton } from '@/components/ui/shimmer-button';
 
 const HeroSection = () => {
   return (
@@ -74,6 +74,17 @@ const HeroSection = () => {
           <ChevronDown className="w-5 h-5" />
         </a>
       </div>
+
+      {/* Admin Login Button */}
+      <Link
+        to="/admin"
+        className="absolute top-4 right-4 z-20"
+      >
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+          <Shield className="w-4 h-4 mr-2" />
+          Login for Admin
+        </Button>
+      </Link>
     </section>
   );
 };

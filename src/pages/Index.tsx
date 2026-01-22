@@ -3,12 +3,15 @@ import Navbar from '@/components/sections/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import OverviewSection from '@/components/sections/OverviewSection';
 import TeamSection from '@/components/sections/TeamSection';
+import MentorsSection from '@/components/sections/MentorsSection';
+import SponsorsSection from '@/components/sections/SponsorsSection';
 import ScheduleSection from '@/components/sections/ScheduleSection';
 import TimelineSection from '@/components/sections/TimelineSection';
 import EvaluationSection from '@/components/sections/EvaluationSection';
 import RulesSection from '@/components/sections/RulesSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import EventGallerySection from '@/components/sections/EventGallerySection';
 import SupportSection from '@/components/sections/SupportSection';
 import Footer from '@/components/sections/Footer';
 
@@ -29,12 +32,15 @@ const Index = () => {
         <HeroSection />
         <OverviewSection />
         <TeamSection />
+        <MentorsSection />
+        <SponsorsSection />
         <ScheduleSection />
         <TimelineSection />
         <EvaluationSection />
         <RulesSection />
         <FAQSection />
         <CTASection />
+        <EventGallerySection />
         <SupportSection />
         <Footer />
       </main>
