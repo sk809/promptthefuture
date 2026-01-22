@@ -7,6 +7,7 @@ import ScheduleSection from '@/components/sections/ScheduleSection';
 import TimelineSection from '@/components/sections/TimelineSection';
 import EvaluationSection from '@/components/sections/EvaluationSection';
 import RulesSection from '@/components/sections/RulesSection';
+import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/sections/Footer';
 
@@ -31,6 +32,7 @@ const Index = () => {
         <TimelineSection />
         <EvaluationSection />
         <RulesSection />
+        <FAQSection />
         <CTASection />
         <Footer />
       </main>
