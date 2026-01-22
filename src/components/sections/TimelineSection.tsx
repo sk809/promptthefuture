@@ -1,111 +1,105 @@
 import { Calendar, FileText, Users, CheckCircle, Clock, Rocket, Coffee, Presentation, Trophy, PartyPopper, Utensils, Megaphone } from 'lucide-react';
-
 const TimelineSection = () => {
-  const day1Events = [
-    { 
-      time: "09:00 - 11:00", 
-      event: "Registrations", 
-      description: "Registration closes strictly at 11:00",
-      tag: "CHECK-IN",
-      icon: Users 
-    },
-    { 
-      time: "11:00 - 12:00", 
-      event: "Inauguration & Problem Statements Distribution", 
-      description: "Opening ceremony and problem statement reveal",
-      tag: "CEREMONY",
-      icon: Calendar 
-    },
-    { 
-      time: "12:00 - 15:00", 
-      event: "Round 1 (Hackathon Begins) 🚀", 
-      description: "The coding marathon officially kicks off",
-      tag: "ROUND 1",
-      icon: Rocket 
-    },
-    { 
-      time: "13:00 - 14:00", 
-      event: "Lunch 🍎🥭", 
-      description: "Refuel and recharge",
-      tag: "BREAK",
-      icon: Utensils 
-    },
-    { 
-      time: "15:00", 
-      event: "Round 1 Ends - First Evaluation (R1 + R2)", 
-      description: "First round submissions and evaluation begins",
-      tag: "EVALUATION",
-      icon: CheckCircle 
-    },
-    { 
-      time: "17:00 - 17:30", 
-      event: "Snacks / Sponsor Engagement 🧃🍕", 
-      description: "Networking with sponsors and snack break",
-      tag: "NETWORKING",
-      icon: Coffee 
-    },
-    { 
-      time: "16:00 - 19:00", 
-      event: "Round 2 (Continues into Friday) 🍿", 
-      description: "Second round of development continues overnight",
-      tag: "ROUND 2",
-      icon: Clock 
-    },
-    { 
-      time: "20:00 - 21:00", 
-      event: "Dinner", 
-      description: "Dinner break for all participants",
-      tag: "BREAK",
-      icon: Utensils 
-    },
-  ];
-
-  const day2Events = [
-    { 
-      time: "05:00 - 07:00", 
-      event: "Evaluation & Shortlisting 🧪📊", 
-      description: "Top 30 Teams Selected",
-      tag: "SHORTLISTING",
-      icon: CheckCircle 
-    },
-    { 
-      time: "08:00", 
-      event: "Shortlist Announcement 📢", 
-      description: "Top 30 teams announced",
-      tag: "ANNOUNCEMENT",
-      icon: Megaphone 
-    },
-    { 
-      time: "09:00 - 10:00", 
-      event: "Breakfast (Top 30 Teams) ☕", 
-      description: "Breakfast for shortlisted teams",
-      tag: "BREAK",
-      icon: Coffee 
-    },
-    { 
-      time: "10:30 - 12:30", 
-      event: "Final Round Showcase & Pitching 🏆📋", 
-      description: "Final Evaluation (R1 + R2 + R3)",
-      tag: "FINAL ROUND",
-      icon: Presentation 
-    },
-    { 
-      time: "13:00", 
-      event: "Hackathon Closes", 
-      description: "The coding battle concludes",
-      tag: "FINALE",
-      icon: Trophy 
-    },
-  ];
-
-  const prizes = [
-    { place: "1st Prize", title: "CHAMPION", amount: "₹50,000", color: "from-yellow-300 via-yellow-400 to-amber-500", glow: "shadow-[0_0_30px_rgba(250,204,21,0.5)]" },
-    { place: "2nd Prize", title: "SILVER SURVIVOR", amount: "₹30,000", color: "from-slate-200 via-slate-300 to-slate-400", glow: "shadow-[0_0_30px_rgba(203,213,225,0.4)]" },
-    { place: "3rd Prize", title: "BRONZE WARRIOR", amount: "₹20,000", color: "from-amber-500 via-orange-500 to-amber-600", glow: "shadow-[0_0_30px_rgba(245,158,11,0.4)]" },
-  ];
-
-  return (
-    <section id="timeline" className="py-24 md:py-32 relative overflow-hidden">
+  const day1Events = [{
+    time: "09:00 - 11:00",
+    event: "Registrations",
+    description: "Registration closes strictly at 11:00",
+    tag: "CHECK-IN",
+    icon: Users
+  }, {
+    time: "11:00 - 12:00",
+    event: "Inauguration & Problem Statements Distribution",
+    description: "Opening ceremony and problem statement reveal",
+    tag: "CEREMONY",
+    icon: Calendar
+  }, {
+    time: "12:00 - 15:00",
+    event: "Round 1 (Hackathon Begins) 🚀",
+    description: "The coding marathon officially kicks off",
+    tag: "ROUND 1",
+    icon: Rocket
+  }, {
+    time: "13:00 - 14:00",
+    event: "Lunch 🍎🥭",
+    description: "Refuel and recharge",
+    tag: "BREAK",
+    icon: Utensils
+  }, {
+    time: "15:00",
+    event: "Round 1 Ends - First Evaluation (R1 + R2)",
+    description: "First round submissions and evaluation begins",
+    tag: "EVALUATION",
+    icon: CheckCircle
+  }, {
+    time: "17:00 - 17:30",
+    event: "Snacks / Sponsor Engagement 🧃🍕",
+    description: "Networking with sponsors and snack break",
+    tag: "NETWORKING",
+    icon: Coffee
+  }, {
+    time: "16:00 - 19:00",
+    event: "Round 2 (Continues into Friday) 🍿",
+    description: "Second round of development continues overnight",
+    tag: "ROUND 2",
+    icon: Clock
+  }, {
+    time: "20:00 - 21:00",
+    event: "Dinner",
+    description: "Dinner break for all participants",
+    tag: "BREAK",
+    icon: Utensils
+  }];
+  const day2Events = [{
+    time: "05:00 - 07:00",
+    event: "Evaluation & Shortlisting 🧪📊",
+    description: "Top 30 Teams Selected",
+    tag: "SHORTLISTING",
+    icon: CheckCircle
+  }, {
+    time: "08:00",
+    event: "Shortlist Announcement 📢",
+    description: "Top 30 teams announced",
+    tag: "ANNOUNCEMENT",
+    icon: Megaphone
+  }, {
+    time: "09:00 - 10:00",
+    event: "Breakfast (Top 30 Teams) ☕",
+    description: "Breakfast for shortlisted teams",
+    tag: "BREAK",
+    icon: Coffee
+  }, {
+    time: "10:30 - 12:30",
+    event: "Final Round Showcase & Pitching 🏆📋",
+    description: "Final Evaluation (R1 + R2 + R3)",
+    tag: "FINAL ROUND",
+    icon: Presentation
+  }, {
+    time: "13:00",
+    event: "Hackathon Closes",
+    description: "The coding battle concludes",
+    tag: "FINALE",
+    icon: Trophy
+  }];
+  const prizes = [{
+    place: "1st Prize",
+    title: "CHAMPION",
+    amount: "₹50,000",
+    color: "from-yellow-300 via-yellow-400 to-amber-500",
+    glow: "shadow-[0_0_30px_rgba(250,204,21,0.5)]"
+  }, {
+    place: "2nd Prize",
+    title: "SILVER SURVIVOR",
+    amount: "₹30,000",
+    color: "from-slate-200 via-slate-300 to-slate-400",
+    glow: "shadow-[0_0_30px_rgba(203,213,225,0.4)]"
+  }, {
+    place: "3rd Prize",
+    title: "BRONZE WARRIOR",
+    amount: "₹20,000",
+    color: "from-amber-500 via-orange-500 to-amber-600",
+    glow: "shadow-[0_0_30px_rgba(245,158,11,0.4)]"
+  }];
+  return <section id="timeline" className="py-24 relative overflow-hidden md:py-[100px]">
       {/* Ambient glow effects */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-purple/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-pink/20 rounded-full blur-[120px] pointer-events-none" />
@@ -152,12 +146,8 @@ const TimelineSection = () => {
 
                 <div className="space-y-6">
                   {day1Events.map((item, index) => {
-                    const IconComponent = item.icon;
-                    return (
-                      <div 
-                        key={index} 
-                        className="flex items-start gap-4 md:gap-6 py-3 group/item hover:bg-white/5 rounded-xl transition-all px-2 -mx-2"
-                      >
+                  const IconComponent = item.icon;
+                  return <div key={index} className="flex items-start gap-4 md:gap-6 py-3 group/item hover:bg-white/5 rounded-xl transition-all px-2 -mx-2">
                         {/* Timeline node */}
                         <div className="relative flex-shrink-0 z-10 mt-1">
                           <div className="absolute inset-0 bg-gradient-to-br from-gradient-pink to-gradient-purple rounded-full blur-md opacity-60 group-hover/item:opacity-100 transition-opacity" />
@@ -183,9 +173,8 @@ const TimelineSection = () => {
                             {item.description}
                           </p>
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                })}
                 </div>
               </div>
             </div>
@@ -221,12 +210,8 @@ const TimelineSection = () => {
 
                 <div className="space-y-4">
                   {day2Events.map((item, index) => {
-                    const IconComponent = item.icon;
-                    return (
-                      <div 
-                        key={index} 
-                        className="flex items-start gap-4 md:gap-6 py-3 group/item hover:bg-white/5 rounded-xl transition-all px-2 -mx-2"
-                      >
+                  const IconComponent = item.icon;
+                  return <div key={index} className="flex items-start gap-4 md:gap-6 py-3 group/item hover:bg-white/5 rounded-xl transition-all px-2 -mx-2">
                         {/* Timeline node */}
                         <div className="relative flex-shrink-0 z-10 mt-1">
                           <div className="absolute inset-0 bg-gradient-to-br from-gradient-blue to-gradient-purple rounded-full blur-md opacity-60 group-hover/item:opacity-100 transition-opacity" />
@@ -252,9 +237,8 @@ const TimelineSection = () => {
                             {item.description}
                           </p>
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                })}
                 </div>
 
                 {/* Prize Distribution */}
@@ -271,22 +255,19 @@ const TimelineSection = () => {
 
                   {/* Prize Cards */}
                   <div className="grid gap-4 md:gap-6 md:grid-cols-3 ml-0 md:ml-14">
-                    {prizes.map((prize, index) => (
-                      <div 
-                        key={index}
-                        className={`relative group/prize ${prize.glow} rounded-xl transition-all hover:scale-[1.02]`}
-                      >
+                    {prizes.map((prize, index) => <div key={index} className={`relative group/prize ${prize.glow} rounded-xl transition-all hover:scale-[1.02]`}>
                         <div className={`absolute -inset-[1px] bg-gradient-to-r ${prize.color} rounded-xl opacity-40 blur-sm`} />
                         <div className="relative bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center space-y-2">
-                          <Trophy className="w-8 h-8 mx-auto" style={{ color: index === 0 ? '#fbbf24' : index === 1 ? '#94a3b8' : '#f59e0b' }} />
+                          <Trophy className="w-8 h-8 mx-auto" style={{
+                        color: index === 0 ? '#fbbf24' : index === 1 ? '#94a3b8' : '#f59e0b'
+                      }} />
                           <p className="text-xs text-muted-foreground uppercase tracking-wider">{prize.title}</p>
                           <p className={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${prize.color} bg-clip-text text-transparent`}>
                             {prize.amount}
                           </p>
                           <p className="text-sm text-muted-foreground">{prize.place}</p>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </div>
               </div>
@@ -294,8 +275,6 @@ const TimelineSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default TimelineSection;

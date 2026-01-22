@@ -1,16 +1,7 @@
 import { Star, CheckCircle2, XCircle } from 'lucide-react';
-
 const EvaluationSection = () => {
-  const criteria = [
-    'Alignment with Ideathon expectations',
-    'Real consumer problem relevance',
-    'Product functionality and deployment',
-    'UI/UX quality and user flow',
-    'Clarity of marketing and presentation',
-  ];
-
-  return (
-    <section id="evaluation" className="py-24 md:py-32 bg-secondary/30">
+  const criteria = ['Alignment with Ideathon expectations', 'Real consumer problem relevance', 'Product functionality and deployment', 'UI/UX quality and user flow', 'Clarity of marketing and presentation'];
+  return <section id="evaluation" className="py-24 bg-secondary/30 md:py-[10px]">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">
@@ -61,14 +52,12 @@ const EvaluationSection = () => {
               Evaluation Parameters
             </h3>
             <ul className="space-y-3">
-              {criteria.map((criterion, index) => (
-                <li key={index} className="flex items-center gap-3">
+              {criteria.map((criterion, index) => <li key={index} className="flex items-center gap-3">
                   <span className="w-6 h-6 rounded-full bg-gradient-to-br from-gradient-purple to-gradient-pink flex items-center justify-center text-xs font-bold text-primary-foreground">
                     {index + 1}
                   </span>
                   <span className="text-muted-foreground">{criterion}</span>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
         </div>
@@ -78,12 +67,10 @@ const EvaluationSection = () => {
           <div className="glass-card p-8 text-center">
             <h3 className="text-xl font-bold mb-6">Star-Based Scoring System</h3>
             <div className="flex flex-wrap justify-center gap-4">
-              {['Ideathon', 'VibeCode', 'Showcase'].map((phase) => (
-                <div key={phase} className="px-6 py-3 rounded-full gradient-border bg-card">
+              {['Ideathon', 'VibeCode', 'Showcase'].map(phase => <div key={phase} className="px-6 py-3 rounded-full gradient-border bg-card">
                   <span className="text-foreground font-medium">{phase}</span>
                   <span className="ml-2 text-primary">★★★★★</span>
-                </div>
-              ))}
+                </div>)}
             </div>
             <p className="text-muted-foreground mt-6 text-sm">
               Final rankings are based on total stars accumulated across all phases
@@ -91,8 +78,6 @@ const EvaluationSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default EvaluationSection;

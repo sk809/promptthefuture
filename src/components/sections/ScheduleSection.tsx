@@ -1,8 +1,6 @@
 import { Calendar, Clock, MapPin } from 'lucide-react';
-
 const ScheduleSection = () => {
-  return (
-    <section id="schedule" className="py-24 md:py-32">
+  return <section id="schedule" className="py-24 md:py-[12px]">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">
@@ -40,8 +38,6 @@ const ScheduleSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ScheduleSection;

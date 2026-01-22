@@ -1,8 +1,6 @@
 import { Brain, Rocket, Trophy } from 'lucide-react';
-
 const OverviewSection = () => {
-  return (
-    <section id="overview" className="py-24 md:py-32 relative">
+  return <section id="overview" className="py-24 relative md:py-px">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">
@@ -53,8 +51,6 @@ const OverviewSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default OverviewSection;
