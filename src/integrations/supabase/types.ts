@@ -14,7 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_whitelist: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      event_images: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          id: string
+          image_url: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mentors: {
+        Row: {
+          bio: string | null
+          created_at: string
+          designation: string
+          display_order: number
+          id: string
+          image_url: string | null
+          linkedin_url: string | null
+          name: string
+          twitter_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          designation: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          linkedin_url?: string | null
+          name: string
+          twitter_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          designation?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          linkedin_url?: string | null
+          name?: string
+          twitter_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sponsors: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          logo_url: string | null
+          name: string
+          tier: string | null
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          logo_url?: string | null
+          name: string
+          tier?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          logo_url?: string | null
+          name?: string
+          tier?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
