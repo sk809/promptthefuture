@@ -1,78 +1,99 @@
-import { Calendar, FileText, Users, CheckCircle, Clock, Rocket, Coffee, Presentation, Trophy, PartyPopper } from 'lucide-react';
+import { Calendar, FileText, Users, CheckCircle, Clock, Rocket, Coffee, Presentation, Trophy, PartyPopper, Utensils, Megaphone } from 'lucide-react';
 
 const TimelineSection = () => {
-  const phase1Events = [
+  const day1Events = [
     { 
-      date: "January 25 - February 15", 
-      event: "Registration Opens", 
-      description: "Online registration starts on Unstop platform. Teams can register and submit their initial details.",
-      tag: "UNSTOP REGISTRATION",
+      time: "09:00 - 11:00", 
+      event: "Registrations", 
+      description: "Registration closes strictly at 11:00",
+      tag: "CHECK-IN",
+      icon: Users 
+    },
+    { 
+      time: "11:00 - 12:00", 
+      event: "Inauguration & Problem Statements Distribution", 
+      description: "Opening ceremony and problem statement reveal",
+      tag: "CEREMONY",
       icon: Calendar 
     },
     { 
-      date: "February 16, 11:59 PM", 
-      event: "Round 1: Submission Deadline", 
-      description: "Teams must submit PPT/PDF presentations showcasing their project ideas and team capabilities.",
-      tag: "UNSTOP SUBMISSION",
-      icon: FileText 
-    },
-    { 
-      date: "February 17 - February 20", 
-      event: "Evaluation & Shortlisting", 
-      description: "Evaluation team reviews submissions. Only the strongest teams survive to the grand finale.",
-      tag: "ELIMINATION ROUND",
-      icon: CheckCircle 
-    },
-    { 
-      date: "February 21, 6:00 PM", 
-      event: "Shortlist Announcement", 
-      description: "Selected teams announced. Survivors receive arena entry confirmation and final instructions.",
-      tag: "FINAL SELECTION",
-      icon: Users 
-    },
-  ];
-
-  const phase2Events = [
-    { 
-      time: "9:00 AM", 
-      event: "Arena Entry & Check-in", 
-      description: "Shortlisted teams arrive at KRCHE campus. Registration, team verification, and opening ceremony.",
-      tag: "MANDATORY ATTENDANCE",
-      icon: Users 
-    },
-    { 
-      time: "10:00 AM", 
-      event: "Grand Finale Begins", 
-      description: "The ultimate 8-hour survival competition starts. Teams begin coding for their lives.",
-      tag: "NO TURNING BACK",
+      time: "12:00 - 15:00", 
+      event: "Round 1 (Hackathon Begins) 🚀", 
+      description: "The coding marathon officially kicks off",
+      tag: "ROUND 1",
       icon: Rocket 
     },
     { 
-      time: "1:00 PM", 
-      event: "Midday Survival Check", 
-      description: "Energy supplies distributed. Mentors available for guidance.",
-      tag: "ELIMINATION RISK HIGH",
+      time: "13:00 - 14:00", 
+      event: "Lunch 🍎🥭", 
+      description: "Refuel and recharge",
+      tag: "BREAK",
+      icon: Utensils 
+    },
+    { 
+      time: "15:00", 
+      event: "Round 1 Ends - First Evaluation (R1 + R2)", 
+      description: "First round submissions and evaluation begins",
+      tag: "EVALUATION",
+      icon: CheckCircle 
+    },
+    { 
+      time: "17:00 - 17:30", 
+      event: "Snacks / Sponsor Engagement 🧃🍕", 
+      description: "Networking with sponsors and snack break",
+      tag: "NETWORKING",
       icon: Coffee 
     },
     { 
-      time: "3:00 PM", 
-      event: "Final Mentor Session", 
-      description: "Last chance for expert guidance. Industry mentors provide final assistance to struggling teams.",
-      tag: "FINAL ASSISTANCE",
-      icon: Presentation 
-    },
-    { 
-      time: "5:00 PM", 
-      event: "Project Submission", 
-      description: "All projects must be submitted. Teams prepare for final presentations and demos.",
-      tag: "DEADLINE ABSOLUTE",
+      time: "16:00 - 19:00", 
+      event: "Round 2 (Continues into Friday) 🍿", 
+      description: "Second round of development continues overnight",
+      tag: "ROUND 2",
       icon: Clock 
     },
     { 
-      time: "6:00 PM", 
-      event: "Final Elimination Ceremony", 
-      description: "Winners announced live. Survivors claim their rewards. The ultimate coding battle concludes.",
-      tag: "FINAL JUDGMENT",
+      time: "20:00 - 21:00", 
+      event: "Dinner", 
+      description: "Dinner break for all participants",
+      tag: "BREAK",
+      icon: Utensils 
+    },
+  ];
+
+  const day2Events = [
+    { 
+      time: "05:00 - 07:00", 
+      event: "Evaluation & Shortlisting 🧪📊", 
+      description: "Top 30 Teams Selected",
+      tag: "SHORTLISTING",
+      icon: CheckCircle 
+    },
+    { 
+      time: "08:00", 
+      event: "Shortlist Announcement 📢", 
+      description: "Top 30 teams announced",
+      tag: "ANNOUNCEMENT",
+      icon: Megaphone 
+    },
+    { 
+      time: "09:00 - 10:00", 
+      event: "Breakfast (Top 30 Teams) ☕", 
+      description: "Breakfast for shortlisted teams",
+      tag: "BREAK",
+      icon: Coffee 
+    },
+    { 
+      time: "10:30 - 12:30", 
+      event: "Final Round Showcase & Pitching 🏆📋", 
+      description: "Final Evaluation (R1 + R2 + R3)",
+      tag: "FINAL ROUND",
+      icon: Presentation 
+    },
+    { 
+      time: "13:00", 
+      event: "Hackathon Closes", 
+      description: "The coding battle concludes",
+      tag: "FINALE",
       icon: Trophy 
     },
   ];
@@ -117,7 +138,7 @@ const TimelineSection = () => {
                   <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-gradient-pink to-gradient-purple rounded-lg blur opacity-75" />
                     <div className="relative bg-gradient-to-r from-gradient-pink via-gradient-purple to-gradient-pink px-6 md:px-8 py-2 md:py-3 rounded-lg border border-white/20">
-                      <h3 className="text-lg md:text-2xl font-bold text-white tracking-wide">PHASE 1: REGISTRATION & SELECTION</h3>
+                      <h3 className="text-lg md:text-2xl font-bold text-white tracking-wide">DAY 1 – THURSDAY</h3>
                     </div>
                   </div>
                 </div>
@@ -130,7 +151,7 @@ const TimelineSection = () => {
                 <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gradient-pink via-gradient-purple to-gradient-blue blur-sm" />
 
                 <div className="space-y-6">
-                  {phase1Events.map((item, index) => {
+                  {day1Events.map((item, index) => {
                     const IconComponent = item.icon;
                     return (
                       <div 
@@ -149,7 +170,7 @@ const TimelineSection = () => {
                         <div className="flex-1 space-y-2">
                           <div className="flex flex-wrap items-center gap-3">
                             <span className="text-base md:text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                              {item.date}
+                              {item.time}
                             </span>
                             <span className="text-xs px-2 py-1 rounded-full bg-gradient-pink/20 text-gradient-pink border border-gradient-pink/30 font-medium">
                               {item.tag}
@@ -186,10 +207,9 @@ const TimelineSection = () => {
                   <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-gradient-blue to-gradient-purple rounded-lg blur opacity-75" />
                     <div className="relative bg-gradient-to-r from-gradient-blue via-gradient-purple to-gradient-blue px-6 md:px-8 py-2 md:py-3 rounded-lg border border-white/20">
-                      <h3 className="text-lg md:text-2xl font-bold text-white tracking-wide">PHASE 2: GRAND FINALE</h3>
+                      <h3 className="text-lg md:text-2xl font-bold text-white tracking-wide">DAY 2 – FRIDAY</h3>
                     </div>
                   </div>
-                  <span className="text-sm text-muted-foreground hidden md:block">February 25 — KRCHE Campus</span>
                 </div>
               </div>
 
@@ -200,7 +220,7 @@ const TimelineSection = () => {
                 <div className="absolute left-5 top-0 bottom-24 w-0.5 bg-gradient-to-b from-gradient-blue via-gradient-purple to-gradient-pink blur-sm" />
 
                 <div className="space-y-4">
-                  {phase2Events.map((item, index) => {
+                  {day2Events.map((item, index) => {
                     const IconComponent = item.icon;
                     return (
                       <div 
