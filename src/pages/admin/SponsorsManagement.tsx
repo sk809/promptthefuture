@@ -226,6 +226,11 @@ const SponsorsManagement = () => {
                     onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
                     placeholder="example.com or https://example.com"
                   />
+                  {formData.website_url && !formData.website_url.match(/^https?:\/\//i) && (
+                    <p className="text-xs text-amber-500">
+                      ⚠️ "https://" will be added automatically when saved
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="tier">Sponsor Tier</Label>
