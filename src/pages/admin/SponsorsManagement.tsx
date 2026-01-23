@@ -114,17 +114,28 @@ const SponsorsManagement = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Ensure website URL has protocol
+    let websiteUrl = formData.website_url.trim();
+    if (websiteUrl && !websiteUrl.match(/^https?:\/\//i)) {
+      websiteUrl = 'https://' + websiteUrl;
+    }
+
+    const submitData = {
+      ...formData,
+      website_url: websiteUrl || null,
+    };
+
     try {
       if (editingSponsor) {
         const { error } = await supabase
           .from('sponsors')
-          .update(formData)
+          .update(submitData)
           .eq('id', editingSponsor.id);
 
         if (error) throw error;
         toast({ title: 'Success', description: 'Sponsor updated successfully' });
       } else {
-        const { error } = await supabase.from('sponsors').insert(formData);
+        const { error } = await supabase.from('sponsors').insert(submitData);
         if (error) throw error;
         toast({ title: 'Success', description: 'Sponsor added successfully' });
       }
