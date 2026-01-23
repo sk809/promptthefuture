@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import quantumLogo from '@/assets/quantum-logo.png';
 
 const navLinks = [
   { label: 'Overview', href: '#overview' },
@@ -31,8 +32,12 @@ const Navbar = () => {
     >
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="font-bold text-lg font-display gradient-text">
-          PTF
+        <a href="#" className="flex items-center">
+          <img 
+            src={quantumLogo} 
+            alt="Quantum 2.0 Hackathon" 
+            className="h-10 w-auto"
+          />
         </a>
 
         {/* Desktop Navigation */}
