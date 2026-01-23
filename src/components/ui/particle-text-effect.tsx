@@ -193,7 +193,36 @@ export function ParticleTextEffect({
       y: y + direction.y
     };
   };
-  const nextWord = (word: string, canvas: HTMLCanvasElement, colorIndex: number) => {
+  // Gradient colors for the final phrase (purple → pink → blue)
+  const GRADIENT_COLORS = [
+    { r: 147, g: 51, b: 234 },  // Purple (hsl 270)
+    { r: 236, g: 72, b: 153 },  // Pink (hsl 330)
+    { r: 59, g: 130, b: 246 },  // Blue (hsl 210)
+  ];
+
+  const getGradientColor = (x: number, canvasWidth: number) => {
+    // Normalize x position to 0-1 range
+    const t = Math.max(0, Math.min(1, x / canvasWidth));
+    
+    // Three-stop gradient: purple (0) → pink (0.5) → blue (1)
+    if (t < 0.5) {
+      const localT = t * 2; // 0-1 for first half
+      return {
+        r: Math.round(GRADIENT_COLORS[0].r + (GRADIENT_COLORS[1].r - GRADIENT_COLORS[0].r) * localT),
+        g: Math.round(GRADIENT_COLORS[0].g + (GRADIENT_COLORS[1].g - GRADIENT_COLORS[0].g) * localT),
+        b: Math.round(GRADIENT_COLORS[0].b + (GRADIENT_COLORS[1].b - GRADIENT_COLORS[0].b) * localT),
+      };
+    } else {
+      const localT = (t - 0.5) * 2; // 0-1 for second half
+      return {
+        r: Math.round(GRADIENT_COLORS[1].r + (GRADIENT_COLORS[2].r - GRADIENT_COLORS[1].r) * localT),
+        g: Math.round(GRADIENT_COLORS[1].g + (GRADIENT_COLORS[2].g - GRADIENT_COLORS[1].g) * localT),
+        b: Math.round(GRADIENT_COLORS[1].b + (GRADIENT_COLORS[2].b - GRADIENT_COLORS[1].b) * localT),
+      };
+    }
+  };
+
+  const nextWord = (word: string, canvas: HTMLCanvasElement, colorIndex: number, isLastWord: boolean = false) => {
     const offscreenCanvas = document.createElement("canvas");
     offscreenCanvas.width = canvas.width;
     offscreenCanvas.height = canvas.height;
@@ -206,7 +235,7 @@ export function ParticleTextEffect({
     const imageData = offscreenCtx.getImageData(0, 0, canvas.width, canvas.height);
     const pixels = imageData.data;
 
-    // Use neon colors in sequence
+    // Use neon colors in sequence, or gradient for last word
     const newColor = NEON_COLORS[colorIndex % NEON_COLORS.length];
     const particles = particlesRef.current;
     let particleIndex = 0;
@@ -245,7 +274,8 @@ export function ParticleTextEffect({
           g: particle.startColor.g + (particle.targetColor.g - particle.startColor.g) * particle.colorWeight,
           b: particle.startColor.b + (particle.targetColor.b - particle.startColor.b) * particle.colorWeight
         };
-        particle.targetColor = newColor;
+        // Use gradient color based on X position for last word, otherwise use sequence color
+        particle.targetColor = isLastWord ? getGradientColor(x, canvas.width) : newColor;
         particle.colorWeight = 0;
         particle.target.x = x;
         particle.target.y = y;
@@ -310,7 +340,8 @@ export function ParticleTextEffect({
       } else {
         wordIndexRef.current = nextIndex;
         colorIndexRef.current = (colorIndexRef.current + 1) % NEON_COLORS.length;
-        nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current);
+        const isLastWord = nextIndex === words.length - 1;
+        nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current, isLastWord);
       }
     }
     animationRef.current = requestAnimationFrame(animate);
