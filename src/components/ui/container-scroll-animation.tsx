@@ -32,7 +32,7 @@ export const ContainerScroll = ({
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  return <div className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 py-[128px]" ref={containerRef}>
+  return <div className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 py-[12px]" ref={containerRef}>
       <div className="py-10 md:py-40 w-full relative" style={{
       perspective: "1000px"
     }}>
