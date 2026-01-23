@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Lock } from 'lucide-react';
+import { Menu, X, Lock, LayoutDashboard, Users, Calendar, Award, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ExpandableTabs } from '@/components/ui/expandable-tabs';
 import quantumLogo from '@/assets/quantum-logo.png';
 
-const navLinks = [
+const navTabs = [
+  { title: 'Overview', icon: LayoutDashboard, href: '#overview' },
+  { title: 'Team', icon: Users, href: '#team' },
+  { title: 'Schedule', icon: Calendar, href: '#schedule' },
+  { title: 'Evaluation', icon: Award, href: '#evaluation' },
+  { title: 'Rules', icon: BookOpen, href: '#rules' },
+];
+
+const mobileNavLinks = [
   { label: 'Overview', href: '#overview' },
   { label: 'Team', href: '#team' },
   { label: 'Schedule', href: '#schedule' },
@@ -40,21 +49,16 @@ const Navbar = () => {
           />
         </a>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Desktop Navigation with Expandable Tabs */}
+        <div className="hidden md:flex items-center gap-4">
+          <ExpandableTabs 
+            tabs={navTabs} 
+            activeColor="gradient-text"
+          />
           <Link to="/admin/login">
             <Button variant="ghost" size="sm" className="gap-2">
               <Lock className="w-4 h-4" />
-              Admin Login
+              Admin
             </Button>
           </Link>
           <Button variant="gradient" size="sm">
@@ -75,7 +79,7 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
+            {mobileNavLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
