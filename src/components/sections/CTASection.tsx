@@ -48,7 +48,12 @@ const CTASection = () => {
 
           {/* CTA Button */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient" size="xl" className="group">
+            <Button 
+              variant="gradient" 
+              size="xl" 
+              className="group"
+              onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfvogyfhIzO5ORYlpK72nTJ8Vb__9oEohW4Yh98bnegDQXNXA/viewform?usp=header', '_blank')}
+            >
               Register Your Team
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
