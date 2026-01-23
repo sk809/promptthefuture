@@ -47,6 +47,13 @@ const CTASection = () => {
             </Button>
           </div>
 
+          {/* Mandatory Registration Notice */}
+          <div className="mt-8 inline-block">
+            <p className="text-base md:text-lg font-semibold gradient-text px-4 py-2 rounded-lg border border-primary/30 bg-primary/5">
+              It is mandatory to fill both Google Form and Devfolio for registration
+            </p>
+          </div>
+
           {/* Tagline */}
           <p className="mt-12 text-primary font-medium tracking-widest uppercase text-sm">
             Prompt it. Build it. Showcase it.

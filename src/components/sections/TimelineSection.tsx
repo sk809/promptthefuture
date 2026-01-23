@@ -14,13 +14,13 @@ const TimelineSection = () => {
     icon: Calendar
   }, {
     time: "12:00 - 15:00",
-    event: "Round 1 (Hackathon Begins) 🚀",
+    event: "Round 1 (Hackathon Begins)",
     description: "The coding marathon officially kicks off",
     tag: "ROUND 1",
     icon: Rocket
   }, {
     time: "13:00 - 14:00",
-    event: "Lunch 🍎🥭",
+    event: "Lunch",
     description: "Refuel and recharge",
     tag: "BREAK",
     icon: Utensils
@@ -32,13 +32,13 @@ const TimelineSection = () => {
     icon: CheckCircle
   }, {
     time: "17:00 - 17:30",
-    event: "Snacks / Sponsor Engagement 🧃🍕",
+    event: "Snacks / Sponsor Engagement",
     description: "Networking with sponsors and snack break",
     tag: "NETWORKING",
     icon: Coffee
   }, {
     time: "16:00 - 19:00",
-    event: "Round 2 (Continues into Friday) 🍿",
+    event: "Round 2 (Continues into Friday)",
     description: "Second round of development continues overnight",
     tag: "ROUND 2",
     icon: Clock
@@ -51,25 +51,25 @@ const TimelineSection = () => {
   }];
   const day2Events = [{
     time: "05:00 - 07:00",
-    event: "Evaluation & Shortlisting 🧪📊",
+    event: "Evaluation & Shortlisting",
     description: "Top 30 Teams Selected",
     tag: "SHORTLISTING",
     icon: CheckCircle
   }, {
     time: "08:00",
-    event: "Shortlist Announcement 📢",
+    event: "Shortlist Announcement",
     description: "Top 30 teams announced",
     tag: "ANNOUNCEMENT",
     icon: Megaphone
   }, {
     time: "09:00 - 10:00",
-    event: "Breakfast (Top 30 Teams) ☕",
+    event: "Breakfast (Top 30 Teams)",
     description: "Breakfast for shortlisted teams",
     tag: "BREAK",
     icon: Coffee
   }, {
     time: "10:30 - 12:30",
-    event: "Final Round Showcase & Pitching 🏆📋",
+    event: "Final Round Showcase & Pitching",
     description: "Final Evaluation (R1 + R2 + R3)",
     tag: "FINAL ROUND",
     icon: Presentation
