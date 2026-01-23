@@ -65,6 +65,13 @@ const HeroSection = () => {
             </a>
           </div>
 
+          {/* Mandatory Registration Notice */}
+          <div className="animate-slide-up delay-400">
+            <p className="text-base md:text-lg font-semibold gradient-text px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 inline-block">
+              It is mandatory to fill both Google Form and Devfolio for registration
+            </p>
+          </div>
+
           {/* Prize Pool */}
           <div className="pt-8 animate-slide-up delay-500">
             <p className="text-muted-foreground text-sm mb-2">Total Prize Pool Worth</p>
