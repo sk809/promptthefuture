@@ -8,7 +8,14 @@ const CTASection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       
       <div className="container mx-auto px-4 relative">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-4xl mx-auto text-center">
+          {/* Mandatory Registration Notice - Top */}
+          <div className="mb-6 inline-block">
+            <p className="text-base md:text-lg font-semibold gradient-text px-4 py-2 rounded-lg border border-primary/30 bg-primary/5">
+              It is mandatory to fill both Google Form and Devfolio for registration
+            </p>
+          </div>
+
           {/* Prize Highlight */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-primary/30 mb-8">
             <Sparkles className="w-4 h-4 text-accent" />
