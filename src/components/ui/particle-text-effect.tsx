@@ -1,406 +1,365 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-
+import { useEffect, useRef, useState } from "react";
 interface Vector2D {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 // Neon color palette: pink, purple, cyan/blue for gradient effect
-const NEON_COLORS = [
-  { r: 255, g: 20, b: 147 },  // Deep Pink
-  { r: 191, g: 64, b: 255 },  // Purple/Violet
-  { r: 0, g: 150, b: 255 },   // Neon Blue
-]
-
+const NEON_COLORS = [{
+  r: 255,
+  g: 20,
+  b: 147
+},
+// Deep Pink
+{
+  r: 191,
+  g: 64,
+  b: 255
+},
+// Purple/Violet
+{
+  r: 0,
+  g: 150,
+  b: 255
+} // Neon Blue
+];
 class Particle {
-  pos: Vector2D = { x: 0, y: 0 }
-  vel: Vector2D = { x: 0, y: 0 }
-  acc: Vector2D = { x: 0, y: 0 }
-  target: Vector2D = { x: 0, y: 0 }
-
-  closeEnoughTarget = 100
-  maxSpeed = 1.0
-  maxForce = 0.1
-  particleSize = 10
-  isKilled = false
-
-  startColor = { r: 0, g: 0, b: 0 }
-  targetColor = { r: 0, g: 0, b: 0 }
-  colorWeight = 0
-  colorBlendRate = 0.01
-
+  pos: Vector2D = {
+    x: 0,
+    y: 0
+  };
+  vel: Vector2D = {
+    x: 0,
+    y: 0
+  };
+  acc: Vector2D = {
+    x: 0,
+    y: 0
+  };
+  target: Vector2D = {
+    x: 0,
+    y: 0
+  };
+  closeEnoughTarget = 100;
+  maxSpeed = 1.0;
+  maxForce = 0.1;
+  particleSize = 10;
+  isKilled = false;
+  startColor = {
+    r: 0,
+    g: 0,
+    b: 0
+  };
+  targetColor = {
+    r: 0,
+    g: 0,
+    b: 0
+  };
+  colorWeight = 0;
+  colorBlendRate = 0.01;
   move() {
-    let proximityMult = 1
-    const distance = Math.sqrt(Math.pow(this.pos.x - this.target.x, 2) + Math.pow(this.pos.y - this.target.y, 2))
-
+    let proximityMult = 1;
+    const distance = Math.sqrt(Math.pow(this.pos.x - this.target.x, 2) + Math.pow(this.pos.y - this.target.y, 2));
     if (distance < this.closeEnoughTarget) {
-      proximityMult = distance / this.closeEnoughTarget
+      proximityMult = distance / this.closeEnoughTarget;
     }
-
     const towardsTarget = {
       x: this.target.x - this.pos.x,
-      y: this.target.y - this.pos.y,
-    }
-
-    const magnitude = Math.sqrt(towardsTarget.x * towardsTarget.x + towardsTarget.y * towardsTarget.y)
+      y: this.target.y - this.pos.y
+    };
+    const magnitude = Math.sqrt(towardsTarget.x * towardsTarget.x + towardsTarget.y * towardsTarget.y);
     if (magnitude > 0) {
-      towardsTarget.x = (towardsTarget.x / magnitude) * this.maxSpeed * proximityMult
-      towardsTarget.y = (towardsTarget.y / magnitude) * this.maxSpeed * proximityMult
+      towardsTarget.x = towardsTarget.x / magnitude * this.maxSpeed * proximityMult;
+      towardsTarget.y = towardsTarget.y / magnitude * this.maxSpeed * proximityMult;
     }
-
     const steer = {
       x: towardsTarget.x - this.vel.x,
-      y: towardsTarget.y - this.vel.y,
-    }
-
-    const steerMagnitude = Math.sqrt(steer.x * steer.x + steer.y * steer.y)
+      y: towardsTarget.y - this.vel.y
+    };
+    const steerMagnitude = Math.sqrt(steer.x * steer.x + steer.y * steer.y);
     if (steerMagnitude > 0) {
-      steer.x = (steer.x / steerMagnitude) * this.maxForce
-      steer.y = (steer.y / steerMagnitude) * this.maxForce
+      steer.x = steer.x / steerMagnitude * this.maxForce;
+      steer.y = steer.y / steerMagnitude * this.maxForce;
     }
-
-    this.acc.x += steer.x
-    this.acc.y += steer.y
-
-    this.vel.x += this.acc.x
-    this.vel.y += this.acc.y
-    this.pos.x += this.vel.x
-    this.pos.y += this.vel.y
-    this.acc.x = 0
-    this.acc.y = 0
+    this.acc.x += steer.x;
+    this.acc.y += steer.y;
+    this.vel.x += this.acc.x;
+    this.vel.y += this.acc.y;
+    this.pos.x += this.vel.x;
+    this.pos.y += this.vel.y;
+    this.acc.x = 0;
+    this.acc.y = 0;
   }
-
   draw(ctx: CanvasRenderingContext2D, drawAsPoints: boolean) {
     if (this.colorWeight < 1.0) {
-      this.colorWeight = Math.min(this.colorWeight + this.colorBlendRate, 1.0)
+      this.colorWeight = Math.min(this.colorWeight + this.colorBlendRate, 1.0);
     }
-
     const currentColor = {
       r: Math.round(this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight),
       g: Math.round(this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight),
-      b: Math.round(this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight),
-    }
-
+      b: Math.round(this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight)
+    };
     if (drawAsPoints) {
-      ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`
-      ctx.fillRect(this.pos.x, this.pos.y, 2, 2)
+      ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+      ctx.fillRect(this.pos.x, this.pos.y, 2, 2);
     } else {
-      ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`
-      ctx.beginPath()
-      ctx.arc(this.pos.x, this.pos.y, this.particleSize / 2, 0, Math.PI * 2)
-      ctx.fill()
+      ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+      ctx.beginPath();
+      ctx.arc(this.pos.x, this.pos.y, this.particleSize / 2, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
-
   kill(width: number, height: number) {
     if (!this.isKilled) {
-      const randomPos = this.generateRandomPos(width / 2, height / 2, (width + height) / 2)
-      this.target.x = randomPos.x
-      this.target.y = randomPos.y
-
+      const randomPos = this.generateRandomPos(width / 2, height / 2, (width + height) / 2);
+      this.target.x = randomPos.x;
+      this.target.y = randomPos.y;
       this.startColor = {
         r: this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight,
         g: this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight,
-        b: this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight,
-      }
-      this.targetColor = { r: 0, g: 0, b: 0 }
-      this.colorWeight = 0
-
-      this.isKilled = true
+        b: this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight
+      };
+      this.targetColor = {
+        r: 0,
+        g: 0,
+        b: 0
+      };
+      this.colorWeight = 0;
+      this.isKilled = true;
     }
   }
-
   private generateRandomPos(x: number, y: number, mag: number): Vector2D {
-    const randomX = Math.random() * 1000
-    const randomY = Math.random() * 500
-
+    const randomX = Math.random() * 1000;
+    const randomY = Math.random() * 500;
     const direction = {
       x: randomX - x,
-      y: randomY - y,
-    }
-
-    const magnitude = Math.sqrt(direction.x * direction.x + direction.y * direction.y)
+      y: randomY - y
+    };
+    const magnitude = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
     if (magnitude > 0) {
-      direction.x = (direction.x / magnitude) * mag
-      direction.y = (direction.y / magnitude) * mag
+      direction.x = direction.x / magnitude * mag;
+      direction.y = direction.y / magnitude * mag;
     }
-
     return {
       x: x + direction.x,
-      y: y + direction.y,
-    }
+      y: y + direction.y
+    };
   }
 }
-
 interface ParticleTextEffectProps {
-  words?: string[]
-  intervalMs?: number
-  className?: string
+  words?: string[];
+  intervalMs?: number;
+  className?: string;
 }
-
-const DEFAULT_WORDS = ["Hello coders !", "Are you ready To", "Prompt the Future"]
-
-export function ParticleTextEffect({ 
-  words = DEFAULT_WORDS, 
+const DEFAULT_WORDS = ["Hello coders !", "Are you ready To", "Prompt the Future"];
+export function ParticleTextEffect({
+  words = DEFAULT_WORDS,
   intervalMs = 4000,
-  className = "" 
+  className = ""
 }: ParticleTextEffectProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
-  const particlesRef = useRef<Particle[]>([])
-  const frameCountRef = useRef(0)
-  const wordIndexRef = useRef(0)
-  const mouseRef = useRef({ x: 0, y: 0, isPressed: false, isRightClick: false })
-  const colorIndexRef = useRef(0)
-  const animationCompleteRef = useRef(false)
-  const [showFinalText, setShowFinalText] = useState(false)
-
-  const pixelSteps = 5
-  const drawAsPoints = true
-  const framesPerWord = Math.round((intervalMs / 1000) * 60)
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>();
+  const particlesRef = useRef<Particle[]>([]);
+  const frameCountRef = useRef(0);
+  const wordIndexRef = useRef(0);
+  const mouseRef = useRef({
+    x: 0,
+    y: 0,
+    isPressed: false,
+    isRightClick: false
+  });
+  const colorIndexRef = useRef(0);
+  const animationCompleteRef = useRef(false);
+  const [showFinalText, setShowFinalText] = useState(false);
+  const pixelSteps = 5;
+  const drawAsPoints = true;
+  const framesPerWord = Math.round(intervalMs / 1000 * 60);
   const generateRandomPos = (x: number, y: number, mag: number): Vector2D => {
-    const randomX = Math.random() * 1000
-    const randomY = Math.random() * 500
-
+    const randomX = Math.random() * 1000;
+    const randomY = Math.random() * 500;
     const direction = {
       x: randomX - x,
-      y: randomY - y,
-    }
-
-    const magnitude = Math.sqrt(direction.x * direction.x + direction.y * direction.y)
+      y: randomY - y
+    };
+    const magnitude = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
     if (magnitude > 0) {
-      direction.x = (direction.x / magnitude) * mag
-      direction.y = (direction.y / magnitude) * mag
+      direction.x = direction.x / magnitude * mag;
+      direction.y = direction.y / magnitude * mag;
     }
-
     return {
       x: x + direction.x,
-      y: y + direction.y,
-    }
-  }
-
+      y: y + direction.y
+    };
+  };
   const nextWord = (word: string, canvas: HTMLCanvasElement, colorIndex: number) => {
-    const offscreenCanvas = document.createElement("canvas")
-    offscreenCanvas.width = canvas.width
-    offscreenCanvas.height = canvas.height
-    const offscreenCtx = offscreenCanvas.getContext("2d")!
-
-    offscreenCtx.fillStyle = "white"
-    offscreenCtx.font = "bold 120px 'Space Grotesk', Arial"
-    offscreenCtx.textAlign = "center"
-    offscreenCtx.textBaseline = "middle"
-    offscreenCtx.fillText(word, canvas.width / 2, canvas.height / 2)
-
-    const imageData = offscreenCtx.getImageData(0, 0, canvas.width, canvas.height)
-    const pixels = imageData.data
+    const offscreenCanvas = document.createElement("canvas");
+    offscreenCanvas.width = canvas.width;
+    offscreenCanvas.height = canvas.height;
+    const offscreenCtx = offscreenCanvas.getContext("2d")!;
+    offscreenCtx.fillStyle = "white";
+    offscreenCtx.font = "bold 120px 'Space Grotesk', Arial";
+    offscreenCtx.textAlign = "center";
+    offscreenCtx.textBaseline = "middle";
+    offscreenCtx.fillText(word, canvas.width / 2, canvas.height / 2);
+    const imageData = offscreenCtx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
 
     // Use neon colors in sequence
-    const newColor = NEON_COLORS[colorIndex % NEON_COLORS.length]
-
-    const particles = particlesRef.current
-    let particleIndex = 0
-
-    const coordsIndexes: number[] = []
+    const newColor = NEON_COLORS[colorIndex % NEON_COLORS.length];
+    const particles = particlesRef.current;
+    let particleIndex = 0;
+    const coordsIndexes: number[] = [];
     for (let i = 0; i < pixels.length; i += pixelSteps * 4) {
-      coordsIndexes.push(i)
+      coordsIndexes.push(i);
     }
-
     for (let i = coordsIndexes.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[coordsIndexes[i], coordsIndexes[j]] = [coordsIndexes[j], coordsIndexes[i]]
+      const j = Math.floor(Math.random() * (i + 1));
+      [coordsIndexes[i], coordsIndexes[j]] = [coordsIndexes[j], coordsIndexes[i]];
     }
-
     for (const coordIndex of coordsIndexes) {
-      const pixelIndex = coordIndex
-      const alpha = pixels[pixelIndex + 3]
-
+      const pixelIndex = coordIndex;
+      const alpha = pixels[pixelIndex + 3];
       if (alpha > 0) {
-        const x = (pixelIndex / 4) % canvas.width
-        const y = Math.floor(pixelIndex / 4 / canvas.width)
-
-        let particle: Particle
-
+        const x = pixelIndex / 4 % canvas.width;
+        const y = Math.floor(pixelIndex / 4 / canvas.width);
+        let particle: Particle;
         if (particleIndex < particles.length) {
-          particle = particles[particleIndex]
-          particle.isKilled = false
-          particleIndex++
+          particle = particles[particleIndex];
+          particle.isKilled = false;
+          particleIndex++;
         } else {
-          particle = new Particle()
-
-          const randomPos = generateRandomPos(canvas.width / 2, canvas.height / 2, (canvas.width + canvas.height) / 2)
-          particle.pos.x = randomPos.x
-          particle.pos.y = randomPos.y
-
-          particle.maxSpeed = Math.random() * 6 + 4
-          particle.maxForce = particle.maxSpeed * 0.05
-          particle.particleSize = Math.random() * 6 + 6
-          particle.colorBlendRate = Math.random() * 0.0275 + 0.0025
-
-          particles.push(particle)
+          particle = new Particle();
+          const randomPos = generateRandomPos(canvas.width / 2, canvas.height / 2, (canvas.width + canvas.height) / 2);
+          particle.pos.x = randomPos.x;
+          particle.pos.y = randomPos.y;
+          particle.maxSpeed = Math.random() * 6 + 4;
+          particle.maxForce = particle.maxSpeed * 0.05;
+          particle.particleSize = Math.random() * 6 + 6;
+          particle.colorBlendRate = Math.random() * 0.0275 + 0.0025;
+          particles.push(particle);
         }
-
         particle.startColor = {
           r: particle.startColor.r + (particle.targetColor.r - particle.startColor.r) * particle.colorWeight,
           g: particle.startColor.g + (particle.targetColor.g - particle.startColor.g) * particle.colorWeight,
-          b: particle.startColor.b + (particle.targetColor.b - particle.startColor.b) * particle.colorWeight,
-        }
-        particle.targetColor = newColor
-        particle.colorWeight = 0
-
-        particle.target.x = x
-        particle.target.y = y
+          b: particle.startColor.b + (particle.targetColor.b - particle.startColor.b) * particle.colorWeight
+        };
+        particle.targetColor = newColor;
+        particle.colorWeight = 0;
+        particle.target.x = x;
+        particle.target.y = y;
       }
     }
-
     for (let i = particleIndex; i < particles.length; i++) {
-      particles[i].kill(canvas.width, canvas.height)
+      particles[i].kill(canvas.width, canvas.height);
     }
-  }
-
+  };
   const animate = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext("2d")!
-    const particles = particlesRef.current
-
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    const particles = particlesRef.current;
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (let i = particles.length - 1; i >= 0; i--) {
-      const particle = particles[i]
-      particle.move()
-      particle.draw(ctx, drawAsPoints)
-
+      const particle = particles[i];
+      particle.move();
+      particle.draw(ctx, drawAsPoints);
       if (particle.isKilled) {
-        if (
-          particle.pos.x < 0 ||
-          particle.pos.x > canvas.width ||
-          particle.pos.y < 0 ||
-          particle.pos.y > canvas.height
-        ) {
-          particles.splice(i, 1)
+        if (particle.pos.x < 0 || particle.pos.x > canvas.width || particle.pos.y < 0 || particle.pos.y > canvas.height) {
+          particles.splice(i, 1);
         }
       }
     }
-
     if (mouseRef.current.isPressed && mouseRef.current.isRightClick) {
-      particles.forEach((particle) => {
-        const distance = Math.sqrt(
-          Math.pow(particle.pos.x - mouseRef.current.x, 2) + Math.pow(particle.pos.y - mouseRef.current.y, 2),
-        )
+      particles.forEach(particle => {
+        const distance = Math.sqrt(Math.pow(particle.pos.x - mouseRef.current.x, 2) + Math.pow(particle.pos.y - mouseRef.current.y, 2));
         if (distance < 50) {
-          particle.kill(canvas.width, canvas.height)
+          particle.kill(canvas.width, canvas.height);
         }
-      })
+      });
     }
+    frameCountRef.current++;
 
-    frameCountRef.current++
-    
     // Check if animation is complete (last word reached and settled)
     if (animationCompleteRef.current) {
       // Continue animating until particles settle, then show final text
       const allSettled = particles.every(p => {
-        const distance = Math.sqrt(Math.pow(p.pos.x - p.target.x, 2) + Math.pow(p.pos.y - p.target.y, 2))
-        return distance < 2
-      })
-      
+        const distance = Math.sqrt(Math.pow(p.pos.x - p.target.x, 2) + Math.pow(p.pos.y - p.target.y, 2));
+        return distance < 2;
+      });
       if (allSettled && particles.length > 0) {
         // Wait a bit then show final gradient text
         setTimeout(() => {
-          setShowFinalText(true)
+          setShowFinalText(true);
           if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current)
+            cancelAnimationFrame(animationRef.current);
           }
-        }, 500)
-        return
+        }, 500);
+        return;
       }
-      
-      animationRef.current = requestAnimationFrame(animate)
-      return
+      animationRef.current = requestAnimationFrame(animate);
+      return;
     }
-    
     if (frameCountRef.current % framesPerWord === 0) {
-      const nextIndex = wordIndexRef.current + 1
-      
+      const nextIndex = wordIndexRef.current + 1;
       if (nextIndex >= words.length) {
         // Last word reached - mark animation as complete
-        animationCompleteRef.current = true
+        animationCompleteRef.current = true;
       } else {
-        wordIndexRef.current = nextIndex
-        colorIndexRef.current = (colorIndexRef.current + 1) % NEON_COLORS.length
-        nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current)
+        wordIndexRef.current = nextIndex;
+        colorIndexRef.current = (colorIndexRef.current + 1) % NEON_COLORS.length;
+        nextWord(words[wordIndexRef.current], canvas, colorIndexRef.current);
       }
     }
-
-    animationRef.current = requestAnimationFrame(animate)
-  }
-
+    animationRef.current = requestAnimationFrame(animate);
+  };
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    canvas.width = 1200
-    canvas.height = 250
-
-    nextWord(words[0], canvas, 0)
-    animate()
-
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = 1200;
+    canvas.height = 250;
+    nextWord(words[0], canvas, 0);
+    animate();
     const handleMouseDown = (e: MouseEvent) => {
-      mouseRef.current.isPressed = true
-      mouseRef.current.isRightClick = e.button === 2
-      const rect = canvas.getBoundingClientRect()
-      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * canvas.width
-      mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * canvas.height
-    }
-
+      mouseRef.current.isPressed = true;
+      mouseRef.current.isRightClick = e.button === 2;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = (e.clientX - rect.left) / rect.width * canvas.width;
+      mouseRef.current.y = (e.clientY - rect.top) / rect.height * canvas.height;
+    };
     const handleMouseUp = () => {
-      mouseRef.current.isPressed = false
-      mouseRef.current.isRightClick = false
-    }
-
+      mouseRef.current.isPressed = false;
+      mouseRef.current.isRightClick = false;
+    };
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * canvas.width
-      mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * canvas.height
-    }
-
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = (e.clientX - rect.left) / rect.width * canvas.width;
+      mouseRef.current.y = (e.clientY - rect.top) / rect.height * canvas.height;
+    };
     const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault()
-    }
-
-    canvas.addEventListener("mousedown", handleMouseDown)
-    canvas.addEventListener("mouseup", handleMouseUp)
-    canvas.addEventListener("mousemove", handleMouseMove)
-    canvas.addEventListener("contextmenu", handleContextMenu)
-
+      e.preventDefault();
+    };
+    canvas.addEventListener("mousedown", handleMouseDown);
+    canvas.addEventListener("mouseup", handleMouseUp);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("contextmenu", handleContextMenu);
     return () => {
       if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
+        cancelAnimationFrame(animationRef.current);
       }
-      canvas.removeEventListener("mousedown", handleMouseDown)
-      canvas.removeEventListener("mouseup", handleMouseUp)
-      canvas.removeEventListener("mousemove", handleMouseMove)
-      canvas.removeEventListener("contextmenu", handleContextMenu)
-    }
-  }, [words])
-
-  return (
-    <div className={`relative ${className}`}>
-      {!showFinalText ? (
-        <canvas
-          ref={canvasRef}
-          className="w-full max-w-6xl h-auto mx-auto"
-          style={{ aspectRatio: '4.8/1' }}
-        />
-      ) : (
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center font-space-grotesk gradient-text animate-fade-in">
+      canvas.removeEventListener("mousedown", handleMouseDown);
+      canvas.removeEventListener("mouseup", handleMouseUp);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, [words]);
+  return <div className={`relative ${className}`}>
+      {!showFinalText ? <canvas ref={canvasRef} className="w-full max-w-6xl h-auto mx-auto text-primary" style={{
+      aspectRatio: '4.8/1'
+    }} /> : <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center font-space-grotesk gradient-text animate-fade-in">
           Prompt the Future
-        </h1>
-      )}
-    </div>
-  )
+        </h1>}
+    </div>;
 }
