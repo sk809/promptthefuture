@@ -16,22 +16,21 @@ const greetings = [
 
 const WelcomeIntro = ({ onComplete }: WelcomeIntroProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
-  const greetingDuration = 800; // Duration each greeting is shown
-  const transitionDuration = 400; // Fade transition duration
+  const greetingDuration = 800;
+  const transitionDuration = 400;
 
   useEffect(() => {
     if (currentIndex < greetings.length) {
       const timer = setTimeout(() => {
         if (currentIndex === greetings.length - 1) {
-          // Last greeting, start fade out
+          // Last greeting, start exit transition
           setTimeout(() => {
-            setIsFadingOut(true);
+            setIsExiting(true);
             setTimeout(() => {
               onComplete();
-            }, 600);
+            }, 800);
           }, greetingDuration);
         } else {
           setCurrentIndex((prev) => prev + 1);
@@ -43,20 +42,24 @@ const WelcomeIntro = ({ onComplete }: WelcomeIntroProps) => {
   }, [currentIndex, onComplete]);
 
   const handleSkip = () => {
-    setIsFadingOut(true);
+    setIsExiting(true);
     setTimeout(() => {
       onComplete();
-    }, 400);
+    }, 600);
   };
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {!isExiting ? (
         <motion.div
           className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden"
           initial={{ opacity: 1 }}
-          animate={{ opacity: isFadingOut ? 0 : 1 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          exit={{ 
+            opacity: 0,
+            scale: 1.1,
+            filter: "blur(20px)",
+          }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {/* Skip Button */}
           <motion.button
@@ -162,6 +165,33 @@ const WelcomeIntro = ({ onComplete }: WelcomeIntroProps) => {
               />
             ))}
           </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden"
+          initial={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={{ 
+            opacity: 0, 
+            scale: 1.15, 
+            filter: "blur(30px)",
+          }}
+          transition={{ 
+            duration: 0.8, 
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
+        >
+          {/* Last greeting during exit */}
+          <h1
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold text-center"
+            style={{
+              background: "linear-gradient(135deg, hsl(330 80% 60%) 0%, hsl(270 70% 60%) 50%, hsl(210 90% 55%) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {greetings[greetings.length - 1].text}
+          </h1>
         </motion.div>
       )}
     </AnimatePresence>
