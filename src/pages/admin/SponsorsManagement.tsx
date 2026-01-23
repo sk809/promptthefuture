@@ -221,10 +221,10 @@ const SponsorsManagement = () => {
                   <Label htmlFor="website">Website URL</Label>
                   <Input
                     id="website"
-                    type="url"
+                    type="text"
                     value={formData.website_url}
                     onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
-                    placeholder="https://example.com"
+                    placeholder="example.com or https://example.com"
                   />
                 </div>
                 <div className="space-y-2">
