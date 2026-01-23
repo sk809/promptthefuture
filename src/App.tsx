@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,29 +18,12 @@ import WelcomeIntro from "./components/WelcomeIntro";
 
 const queryClient = new QueryClient();
 
-const INTRO_STORAGE_KEY = "promptthefuture_intro_seen";
-
 const App = () => {
-  const [showIntro, setShowIntro] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Check if intro has been seen before
-    const introSeen = sessionStorage.getItem(INTRO_STORAGE_KEY);
-    if (!introSeen) {
-      setShowIntro(true);
-    }
-    setIsLoading(false);
-  }, []);
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleIntroComplete = () => {
-    sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
     setShowIntro(false);
   };
-
-  if (isLoading) {
-    return null; // Prevent flash while checking storage
-  }
 
   return (
     <HelmetProvider>
